@@ -1,5 +1,5 @@
 # time_offset_checker.py should be running on background
-
+import time
 from pathlib import Path
 
 
@@ -14,7 +14,7 @@ def get_latest_offset():
         print("time offset not ready!!")
         return 0
     
-    return int(offset_files[-1].stem.split("_")[-1]) // 1000
+    return int(offset_files[-1].stem.split("_")[-1])
 
 
 
@@ -24,4 +24,4 @@ print(f"{latest_offset = }")
 
 client = binance.Client(api_key="my_api_key", private_key="my_private_key")
 #update client timestamp offset as needed
-client.timestamp_offset = latest_offset
+client.order_market_buy(timestamp = time() + latest_offset)
